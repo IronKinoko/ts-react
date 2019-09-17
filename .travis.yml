@@ -11,10 +11,14 @@ notifications:
     on_success: change
     on_failure: always
 
+install:
+  -
+
 script:
-  - yarn build
+  -
 
 before_deploy:
+  - ls -al
   - cd dist
   - touch .nojekyll
 
