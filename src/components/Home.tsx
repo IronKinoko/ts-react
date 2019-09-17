@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Grid, Button, TextField } from '@material-ui/core'
 import Search from '@material-ui/icons/Search'
+import { Link as RouteLink } from 'react-router-dom'
 interface RouteData {
   path: string
   name: string
@@ -40,9 +41,9 @@ const Home: React.FC = () => {
       </Grid>
       {filterMainPageRouter.map((item, inde) => (
         <Grid item key={item.path} lg={1} md={2} xs={6}>
-          <Button variant="outlined" href={item.path}>
-            {item.name}
-          </Button>
+          <RouteLink to={item.path}>
+            <Button variant="outlined">{item.name}</Button>
+          </RouteLink>
         </Grid>
       ))}
     </Grid>
