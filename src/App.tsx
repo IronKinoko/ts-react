@@ -5,13 +5,22 @@ import { hot } from 'react-hot-loader/root'
 
 import Box from '@material-ui/core/Box'
 import Nav from './components/base/Nav'
+import Home from './components/Home'
+
+import { Route, Switch, Redirect } from 'react-router-dom'
+import Test from './components/Test'
 
 const App: React.FC = (props: { children?: React.ReactNode }) => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Nav />
       <Box p={2} flex="1">
-        {props.children}
+        <Switch>
+          <Route path="/" exact component={Home}></Route>
+          <Route path="/test" component={Test}></Route>
+          {/* <Route Path="/jsonFormat" component={}></Route> */}
+          <Redirect to="/" />
+        </Switch>
       </Box>
     </Box>
   )

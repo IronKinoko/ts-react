@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+  - lts/*
+
+cache:
+  directories:
+    - node_modules
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+script:
+  - yarn build
+
+before_deploy:
+  - cd dist
+  - touch .nojekyll
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/
+  repo: IronKinoko/IronKinoko.github.io
+  target_branch: master
+  on:
+    branch: master
