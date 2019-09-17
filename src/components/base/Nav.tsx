@@ -1,13 +1,6 @@
 import React from 'react'
 
-import {
-  AppBar,
-  Typography,
-  Toolbar,
-  IconButton,
-  Icon
-} from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { AppBar, Typography, Toolbar, IconButton } from '@material-ui/core'
 import Home from '@material-ui/icons/Home'
 const Nav: React.FC = () => {
   return (
