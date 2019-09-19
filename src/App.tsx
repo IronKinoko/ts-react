@@ -2,12 +2,12 @@ import './App.sass'
 
 import React from 'react'
 import { hot } from 'react-hot-loader/root'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import Box from '@material-ui/core/Box'
 import Nav from './components/base/Nav'
-import Home from './components/Home'
-
-import { Route, Switch, Redirect } from 'react-router-dom'
+import Home from './components/Home/Home'
+import JsonFormat from './components/JsonFormat/JsonFormat'
 import Test from './components/Test'
 
 const App: React.FC = (props: { children?: React.ReactNode }) => {
@@ -18,7 +18,7 @@ const App: React.FC = (props: { children?: React.ReactNode }) => {
         <Switch>
           <Route path="/" exact component={Home}></Route>
           <Route path="/test" component={Test}></Route>
-          {/* <Route Path="/jsonFormat" component={}></Route> */}
+          <Route Path="/jsonFormat" component={JsonFormat}></Route>
           <Redirect to="/" />
         </Switch>
       </Box>

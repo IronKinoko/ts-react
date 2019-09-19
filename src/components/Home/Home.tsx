@@ -39,7 +39,7 @@ const Home: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      {filterMainPageRouter.map((item, inde) => (
+      {filterMainPageRouter.map(item => (
         <Grid item key={item.path} lg={1} md={2} xs={6}>
           <RouteLink to={item.path}>
             <Button variant="outlined">{item.name}</Button>

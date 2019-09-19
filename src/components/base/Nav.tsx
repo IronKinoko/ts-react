@@ -1,6 +1,13 @@
 import React from 'react'
 
-import { AppBar, Typography, Toolbar, IconButton } from '@material-ui/core'
+import {
+  AppBar,
+  Typography,
+  Toolbar,
+  IconButton,
+  Box,
+  Button
+} from '@material-ui/core'
 import { Link as RouteLink } from 'react-router-dom'
 
 import Home from '@material-ui/icons/Home'
@@ -15,6 +22,12 @@ const Nav: React.FC = () => {
             </IconButton>
           </RouteLink>
           <Typography component="h6">Web tools</Typography>
+          <Box flexGrow="1" />
+          <RouteLink to="/">
+            <Button variant="text" color="inherit">
+              HOME
+            </Button>
+          </RouteLink>
         </Toolbar>
       </AppBar>
     </div>
