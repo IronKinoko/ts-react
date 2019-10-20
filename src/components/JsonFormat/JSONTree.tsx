@@ -18,6 +18,9 @@ const style = {
   },
   primary: {
     color: '#2a00ff'
+  },
+  gray: {
+    color: '#e3e3e3'
   }
 }
 
@@ -67,12 +70,20 @@ function renderTree(props: propsType): JSX.Element[] | undefined {
             label={<StringComp label={key} value={element} />}
           />
         )
+      } else if (Object.prototype.toString.call(element) === '[object Null]') {
+        arr.push(
+          <TreeItem
+            key={Math.random()}
+            nodeId={guid()}
+            label={<StringComp label={key} value={'null'} />}
+          />
+        )
       } else if (typeof element == 'object') {
         arr.push(
           <TreeItem
             key={Math.random()}
             nodeId={guid()}
-            label={<ObjectComp index={i} />}>
+            label={<ObjectComp index={i} label={key} />}>
             <JSONTree data={element} index={props.index + 1} />
           </TreeItem>
         )
@@ -107,11 +118,15 @@ const StringComp: React.FC<StringProps> = props => {
   return (
     <>
       <span style={style.label}>{props.label}</span>
-      <span>: </span>
+      <span>：</span>
       {typeof props.value === 'string' ? (
-        <span>
-          "<span style={style.value}>{props.value}</span>"
-        </span>
+        props.value === 'null' ? (
+          <span style={style.gray}>{props.value}</span>
+        ) : (
+          <>
+            "<span style={style.value}>{props.value}</span>"
+          </>
+        )
       ) : (
         <span style={style.primary}>{props.value}</span>
       )}
@@ -122,12 +137,13 @@ const StringComp: React.FC<StringProps> = props => {
 type ObjectProps = {
   children?: React.ReactNode
   index: number
+  label: string
 }
 const ObjectComp: React.FC<ObjectProps> = props => {
   return (
     <>
       <span>
-        <span style={style.label}>{props.index}</span>: object
+        <span style={style.label}>{props.label || props.index}</span>: object
       </span>
     </>
   )
