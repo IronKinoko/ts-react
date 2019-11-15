@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-import { TextField, Typography, Paper, Box } from '@material-ui/core'
-
+import { TextField, Typography, Paper, Box, Tabs, Tab } from '@material-ui/core'
+import SwipeableViews from 'react-swipeable-views'
+// import Add from '@material-ui/icons/Add'
 import JSONTree from './JSONTree'
 
 function recursion(res: any): any {
@@ -38,7 +39,7 @@ const JsonFormat: React.FC = () => {
   console.log(res)
   return (
     <>
-      <Typography variant="h5">JSON字符串格式化</Typography>
+      <Typography variant="h5">JSON Format</Typography>
       <TextField
         label="Multiline"
         placeholder="input JSON String"
@@ -51,7 +52,7 @@ const JsonFormat: React.FC = () => {
         }}
         rowsMax="10"
         margin="normal"></TextField>
-      <Typography variant="subtitle1">结果</Typography>
+      <Typography variant="subtitle1">Result</Typography>
       <Paper>
         <Box p={1}>
           <JSONTree data={res} index={1} />
@@ -61,4 +62,48 @@ const JsonFormat: React.FC = () => {
   )
 }
 
-export default JsonFormat
+function a11yProps(index: any): any {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
+  }
+}
+
+const Page: React.FC = () => {
+  const [value, setValue] = React.useState(0)
+  const handleChange = (
+    event: React.ChangeEvent<{}>,
+    newValue: number
+  ): void => {
+    setValue(newValue)
+  }
+  return (
+    <>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="scrollable"
+        scrollButtons="auto">
+        <Tab label="Item One" {...a11yProps(0)} />
+        <Tab label="Item Two" {...a11yProps(1)} />
+        <Tab label="Item Three" {...a11yProps(2)} />
+        {/* <Tab icon={<Add />} /> */}
+      </Tabs>
+      <SwipeableViews index={value} onChangeIndex={(v): void => setValue(v)}>
+        <Box mt={2}>
+          <JsonFormat />
+        </Box>
+        <Box mt={2}>
+          <JsonFormat />
+        </Box>
+        <Box mt={2}>
+          <JsonFormat />
+        </Box>
+      </SwipeableViews>
+    </>
+  )
+}
+
+export default Page
