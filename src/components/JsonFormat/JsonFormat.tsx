@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
-import { TextField, Typography, Paper, Box, Tabs, Tab } from '@material-ui/core'
+import {
+  TextField,
+  Typography,
+  Paper,
+  Box,
+  Tabs,
+  Tab,
+  Fade
+} from '@material-ui/core'
 import SwipeableViews from 'react-swipeable-views'
 import Add from '@material-ui/icons/Add'
 import Close from '@material-ui/icons/Close'
@@ -98,13 +106,13 @@ const CreateLabel: React.FC<CreateLabelProps> = props => {
       alignItems="center"
       justifyContent="center">
       {'Tab ' + (k + 1)}
-      {active && (
+      <Fade in={active}>
         <Close
           style={{ paddingLeft: '8' }}
           fontSize="inherit"
           onClick={onClick}
         />
-      )}
+      </Fade>
     </Box>
   )
 }
