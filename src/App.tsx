@@ -9,6 +9,7 @@ import Nav from './components/base/Nav'
 import Home from './components/Home/Home'
 import JsonFormat from './components/JsonFormat/JsonFormat'
 import Test from './components/Test'
+import Hook from './components/ReactHook/Hook'
 
 const App: React.FC = (props: { children?: React.ReactNode }) => {
   return (
@@ -18,7 +19,8 @@ const App: React.FC = (props: { children?: React.ReactNode }) => {
         <Switch>
           <Route path="/" exact component={Home}></Route>
           <Route path="/test" component={Test}></Route>
-          <Route Path="/jsonFormat" component={JsonFormat}></Route>
+          <Route path="/jsonFormat" component={JsonFormat}></Route>
+          <Route path="/reactHook" component={Hook} />
           <Redirect to="/" />
         </Switch>
       </Box>

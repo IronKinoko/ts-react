@@ -109,78 +109,69 @@ const CreateLabel: React.FC<CreateLabelProps> = props => {
   )
 }
 interface TabResult {
-  label: JSX.Element
   uid: string
+  k: number
 }
 
-interface PageState {
-  value: number
-  pageNum: number
-  tabArr: TabResult[]
-}
+const Page: React.FC = () => {
+  const [value, setValue] = useState(0)
+  const [tabArr, setTabArr] = useState<TabResult[]>([
+    { uid: '1', k: 0 },
+    { uid: '2', k: 1 },
+    { uid: '3', k: 2 }
+  ])
+  const [pageNum, setPageNum] = useState(3)
 
-class Page extends React.Component<{}, PageState> {
-  constructor(props: any) {
-    super(props)
-    this.state = {
-      value: 0,
-      pageNum: 3,
-      tabArr: [...Array(3)].map((v, k) => this.createTab(k))
-    }
+  const removeTab = (uid: string) => {
+    setTabArr(tabArr.filter(o => o.uid !== uid))
   }
 
-  removeTab = (uid: string) => {
-    const { tabArr } = this.state
-    this.setState({ tabArr: tabArr.filter(o => o.uid !== uid) })
-  }
-
-  createTab = (k: number): TabResult => {
+  const createTab = (k: number): TabResult => {
     const uid = String(Math.random())
-    console.log(uid)
-    return {
-      label: <CreateLabel k={k} key={k} onClick={() => this.removeTab(uid)} />,
-      uid
-    }
+    return { uid, k }
   }
 
-  handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
-    this.setState({ value: newValue })
+  const handleChange = (
+    event: React.ChangeEvent<{}>,
+    newValue: number
+  ): void => {
+    setValue(newValue)
   }
-  handleAdd = (): void => {
-    this.setState(
-      { tabArr: [...this.state.tabArr, this.createTab(this.state.pageNum)] },
-      () => this.setState({ pageNum: this.state.pageNum + 1 })
-    )
+  const handleAdd = (): void => {
+    setTabArr([...tabArr, createTab(pageNum)])
+    setPageNum(pageNum + 1)
   }
-
-  render() {
-    const { value, tabArr } = this.state
-    return (
-      <>
-        <Tabs
-          value={value}
-          onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto">
-          {tabArr.map((v, k) => (
-            <Tab label={v.label} key={k} {...a11yProps(k)} />
-          ))}
-          <Tab icon={<Add />} onClick={this.handleAdd} />
-        </Tabs>
-        <SwipeableViews
-          index={value}
-          onChangeIndex={(v: number): void => this.setState({ value: v })}>
-          {tabArr.map((v, k) => (
-            <Box mt={2} key={v.uid}>
-              <JsonFormat />
-            </Box>
-          ))}
-        </SwipeableViews>
-      </>
-    )
-  }
+  return (
+    <>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="scrollable"
+        scrollButtons="auto">
+        {tabArr.map((v, k) => (
+          <Tab
+            label={
+              <CreateLabel k={v.k} key={k} onClick={() => removeTab(v.uid)} />
+            }
+            key={k}
+            {...a11yProps(k)}
+          />
+        ))}
+        <Tab icon={<Add />} onClick={handleAdd} />
+      </Tabs>
+      <SwipeableViews
+        index={value}
+        onChangeIndex={(v: number): void => setValue(v)}>
+        {tabArr.map((v, k) => (
+          <Box mt={2} key={v.uid}>
+            <JsonFormat />
+          </Box>
+        ))}
+      </SwipeableViews>
+    </>
+  )
 }
 
 export default Page

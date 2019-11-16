@@ -9,7 +9,8 @@ interface RouteData {
 
 const mainPageRouter: RouteData[] = [
   { path: '/jsonFormat', name: 'JSON格式化' },
-  { path: '/test', name: '测试专用' }
+  { path: '/test', name: '测试专用' },
+  { path: '/reactHook', name: 'React Hook' }
 ]
 
 const Home: React.FC = () => {
