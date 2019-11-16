@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 import { TextField, Typography, Paper, Box, Tabs, Tab } from '@material-ui/core'
 import SwipeableViews from 'react-swipeable-views'
-// import Add from '@material-ui/icons/Add'
+import Add from '@material-ui/icons/Add'
+import Close from '@material-ui/icons/Close'
+
 import JSONTree from './JSONTree'
 
 function recursion(res: any): any {
@@ -77,41 +79,108 @@ function a11yProps(index: any): any {
   }
 }
 
-const Page: React.FC = () => {
-  const [value, setValue] = React.useState(0)
-  const handleChange = (
-    event: React.ChangeEvent<{}>,
-    newValue: number
-  ): void => {
-    setValue(newValue)
-  }
+interface CreateLabelProps {
+  k: number
+  onClick?: () => void | undefined
+}
+const CreateLabel: React.FC<CreateLabelProps> = props => {
+  const { k, onClick } = props
+  const [active, setActive] = useState(false)
+
+  const handleMouseEnter = (): void => setActive(true)
+  const handleMouseLeave = (): void => setActive(false)
+
   return (
-    <>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        variant="scrollable"
-        scrollButtons="auto">
-        <Tab label="Item One" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
-        {/* <Tab icon={<Add />} /> */}
-      </Tabs>
-      <SwipeableViews index={value} onChangeIndex={(v): void => setValue(v)}>
-        <Box mt={2}>
-          <JsonFormat />
-        </Box>
-        <Box mt={2}>
-          <JsonFormat />
-        </Box>
-        <Box mt={2}>
-          <JsonFormat />
-        </Box>
-      </SwipeableViews>
-    </>
+    <Box
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      display="flex"
+      alignItems="center"
+      justifyContent="center">
+      {'Tab ' + (k + 1)}
+      {active && (
+        <Close
+          style={{ paddingLeft: '8' }}
+          fontSize="inherit"
+          onClick={onClick}
+        />
+      )}
+    </Box>
   )
+}
+interface TabResult {
+  label: JSX.Element
+  uid: string
+}
+
+interface PageState {
+  value: number
+  pageNum: number
+  tabArr: TabResult[]
+}
+
+class Page extends React.Component<{}, PageState> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      value: 0,
+      pageNum: 3,
+      tabArr: [...Array(3)].map((v, k) => this.createTab(k))
+    }
+  }
+
+  removeTab = (uid: string) => {
+    const { tabArr } = this.state
+    this.setState({ tabArr: tabArr.filter(o => o.uid !== uid) })
+  }
+
+  createTab = (k: number): TabResult => {
+    const uid = String(Math.random())
+    console.log(uid)
+    return {
+      label: <CreateLabel k={k} key={k} onClick={() => this.removeTab(uid)} />,
+      uid
+    }
+  }
+
+  handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
+    this.setState({ value: newValue })
+  }
+  handleAdd = (): void => {
+    this.setState(
+      { tabArr: [...this.state.tabArr, this.createTab(this.state.pageNum)] },
+      () => this.setState({ pageNum: this.state.pageNum + 1 })
+    )
+  }
+
+  render() {
+    const { value, tabArr } = this.state
+    return (
+      <>
+        <Tabs
+          value={value}
+          onChange={this.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto">
+          {tabArr.map((v, k) => (
+            <Tab label={v.label} key={k} {...a11yProps(k)} />
+          ))}
+          <Tab icon={<Add />} onClick={this.handleAdd} />
+        </Tabs>
+        <SwipeableViews
+          index={value}
+          onChangeIndex={(v: number): void => this.setState({ value: v })}>
+          {tabArr.map((v, k) => (
+            <Box mt={2} key={v.uid}>
+              <JsonFormat />
+            </Box>
+          ))}
+        </SwipeableViews>
+      </>
+    )
+  }
 }
 
 export default Page
