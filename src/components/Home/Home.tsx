@@ -1,23 +1,32 @@
 import React, { useState } from 'react'
-import { Grid, Button, TextField } from '@material-ui/core'
+import { Grid, Button, TextField, Fade } from '@material-ui/core'
 import Search from '@material-ui/icons/Search'
 import { Link as RouteLink } from 'react-router-dom'
 interface RouteData {
   path: string
   name: string
+  in: boolean
 }
 
 const mainPageRouter: RouteData[] = [
-  { path: '/jsonFormat', name: 'JSON格式化' },
-  { path: '/test', name: '测试专用' },
-  { path: '/reactHook', name: 'React Hook' }
+  { path: '/jsonFormat', name: 'JSON格式化', in: true },
+  { path: '/test', name: '测试专用', in: true },
+  { path: '/reactHook', name: 'React Hook', in: true }
 ]
 
 const Home: React.FC = () => {
   const [filter, setFilter] = useState('')
-  const filterMainPageRouter = mainPageRouter.filter((item: RouteData) => {
-    return item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+  const filterMainPageRouter = mainPageRouter.map((item: RouteData) => {
+    let newItem = { ...item }
+    if (
+      item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
+      item.path.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+    )
+      newItem.in = true
+    else newItem.in = false
+    return newItem
   })
+  const emptyResult = filterMainPageRouter.every(o => o.in === false)
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -32,20 +41,22 @@ const Home: React.FC = () => {
               onChange={(e): void => {
                 setFilter(e.target.value)
               }}
-              helperText={filterMainPageRouter.length === 0 ? 'not fond' : null}
+              helperText={emptyResult ? 'not fond' : null}
               FormHelperTextProps={{
-                error: filterMainPageRouter.length === 0
+                error: emptyResult
               }}
             />
           </Grid>
         </Grid>
       </Grid>
-      {filterMainPageRouter.map(item => (
-        <Grid item key={item.path} lg={2} md={3} xs={6}>
-          <RouteLink to={item.path}>
-            <Button variant="outlined">{item.name}</Button>
-          </RouteLink>
-        </Grid>
+      {filterMainPageRouter.map((item, index) => (
+        <Fade in={item.in} unmountOnExit key={item.path}>
+          <Grid item xl={1} lg={2} md={3} sm={6} xs={12}>
+            <RouteLink to={item.path}>
+              <Button variant="outlined">{item.name}</Button>
+            </RouteLink>
+          </Grid>
+        </Fade>
       ))}
     </Grid>
   )
