@@ -11,13 +11,14 @@ interface RouteData {
 const mainPageRouter: RouteData[] = [
   { path: '/jsonFormat', name: 'JSON格式化', in: true },
   { path: '/test', name: '测试专用', in: true },
-  { path: '/reactHook', name: 'React Hook', in: true }
+  { path: '/reactHook', name: 'React Hook', in: true },
+  { path: './reactSpring', name: 'React Spring', in: true }
 ]
 
 const Home: React.FC = () => {
   const [filter, setFilter] = useState('')
   const filterMainPageRouter = mainPageRouter.map((item: RouteData) => {
-    let newItem = { ...item }
+    const newItem = { ...item }
     if (
       item.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()) ||
       item.path.toLocaleLowerCase().includes(filter.toLocaleLowerCase())

@@ -10,7 +10,7 @@ import Home from './components/Home/Home'
 import JsonFormat from './components/JsonFormat/JsonFormat'
 import Test from './components/Test'
 import Hook from './components/ReactHook/Hook'
-
+import ReactSpring from './components/ReactSpring/ReactSpring'
 const App: React.FC = (props: { children?: React.ReactNode }) => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
@@ -21,6 +21,7 @@ const App: React.FC = (props: { children?: React.ReactNode }) => {
           <Route path="/test" component={Test}></Route>
           <Route path="/jsonFormat" component={JsonFormat}></Route>
           <Route path="/reactHook" component={Hook} />
+          <Route path="/reactSpring" component={ReactSpring} />
           <Redirect to="/" />
         </Switch>
       </Box>
