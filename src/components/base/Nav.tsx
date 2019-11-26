@@ -1,37 +1,31 @@
 import React from 'react'
 
-import {
-  AppBar,
-  Typography,
-  Toolbar,
-  IconButton,
-  Box,
-  Button
-} from '@material-ui/core'
-import { Link as RouteLink } from 'react-router-dom'
+import { AppBar, Typography, Toolbar, IconButton, Box } from '@material-ui/core'
+import { Link as RouteLink, withRouter } from 'react-router-dom'
 
 import Home from '@material-ui/icons/Home'
-const Nav: React.FC = () => {
+import Back from '@material-ui/icons/ArrowBack'
+const Nav = withRouter(({ history }) => {
   return (
-    <div>
+    <Box>
       <AppBar position="static">
         <Toolbar>
+          <IconButton color="inherit" onClick={() => history.goBack()}>
+            <Back />
+          </IconButton>
           <RouteLink to="/">
             <IconButton edge="start" color="inherit" aria-label="home">
               <Home />
             </IconButton>
           </RouteLink>
-          <Typography component="h6">Web tools</Typography>
-          <Box flexGrow="1" />
           <RouteLink to="/">
-            <Button variant="text" color="inherit">
-              HOME
-            </Button>
+            <Typography component="h6">Web tools</Typography>
           </RouteLink>
+          <Box flexGrow="1" />
         </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   )
-}
+})
 
 export default Nav

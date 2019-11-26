@@ -43,7 +43,7 @@ const Hook: React.FC = () => {
   const reset = () => setList([])
   const refresh = () => setList([...list])
   return (
-    <>
+    <Box>
       <Box m={1} display="inline-block">
         <ButtonGroup variant="outlined" color="primary">
           <Button onClick={add}>
@@ -81,7 +81,7 @@ const Hook: React.FC = () => {
           ))}
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }
 

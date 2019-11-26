@@ -4,7 +4,7 @@ import { Grid, Box, Card, CardHeader, CardContent } from '@material-ui/core'
 
 const ReactSpring: React.FC = () => {
   return (
-    <>
+    <Box>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6} lg={4} xl={3}>
           <Card>
@@ -23,7 +23,7 @@ const ReactSpring: React.FC = () => {
           </Card>
         </Grid>
       </Grid>
-    </>
+    </Box>
   )
 }
 

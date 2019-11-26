@@ -7,3 +7,47 @@
       flex: 1
       background: #ffffff
       padding: 24px
+.animated-wrap
+  display: flex
+  position: relative
+  &>div
+    flex: 0 0 100%
+.forward-enter
+  opacity: 0
+  position: absolute
+  left: 100vw
+  width: 100%
+  &-active
+    opacity: 1
+    left: 0
+    transition: all .3s ease-in-out
+
+.forward-exit
+  opacity: 1
+  position: absolute
+  left: 0
+  width: 100%
+  &-active
+    opacity: 0
+    left: -100vw
+    transition: all .3s ease-in-out
+
+.back-enter
+  opacity: 0
+  position: absolute
+  left: -100vw
+  width: 100%
+  &-active
+    opacity: 1
+    left: 0
+    transition: all .3s ease-in-out
+
+.back-exit
+  opacity: 1
+  position: absolute
+  left: 0
+  width: 100%
+  &-active
+    opacity: 0
+    left: 100vw
+    transition: all .3s ease-in-out

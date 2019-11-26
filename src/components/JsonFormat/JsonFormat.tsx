@@ -150,7 +150,7 @@ const Page: React.FC = () => {
     setPageNum(pageNum + 1)
   }
   return (
-    <>
+    <Box>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -178,7 +178,7 @@ const Page: React.FC = () => {
           </Box>
         ))}
       </SwipeableViews>
-    </>
+    </Box>
   )
 }
 
