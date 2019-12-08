@@ -1,17 +1,32 @@
-import './App.sass'
-
-import React from 'react'
+import React, { Suspense } from 'react'
 import { hot } from 'react-hot-loader/root'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import Box from '@material-ui/core/Box'
 import Nav from './components/base/Nav'
-import Home from './components/Home/Home'
-import JsonFormat from './components/JsonFormat/JsonFormat'
-import Test from './components/Test'
-import Hook from './components/ReactHook/Hook'
-import ReactSpring from './components/ReactSpring/ReactSpring'
+
+import './App.sass'
+
+const Home = React.lazy(() =>
+  import(/* webpackChunkName: 'Home'*/ './components/Home/Home')
+)
+const JsonFormat = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'JsonFormat'*/ './components/JsonFormat/JsonFormat'
+  )
+)
+const Test = React.lazy(() =>
+  import(/* webpackChunkName: 'Test'*/ './components/Test')
+)
+const Hook = React.lazy(() =>
+  import(/* webpackChunkName: 'Hook'*/ './components/ReactHook/Hook')
+)
+const ReactSpring = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'ReactSpring'*/ './components/ReactSpring/ReactSpring'
+  )
+)
 
 const actionsMap = { PUSH: 'forward', POP: 'back', REPLACE: '' }
 const Routers = withRouter(({ location, history }) => (
@@ -21,14 +36,16 @@ const Routers = withRouter(({ location, history }) => (
       React.cloneElement(child, { classNames: actionsMap[history.action] })
     }>
     <CSSTransition timeout={300} key={location.pathname}>
-      <Switch location={location}>
-        <Route path="/" exact component={Home} />
-        <Route path="/test" component={Test} />
-        <Route path="/jsonFormat" component={JsonFormat} />
-        <Route path="/reactHook" component={Hook} />
-        <Route path="/reactSpring" component={ReactSpring} />
-        <Redirect to="/" />
-      </Switch>
+      <Suspense fallback={<div>loading...</div>}>
+        <Switch location={location}>
+          <Route path="/" exact component={Home} />
+          <Route path="/test" component={Test} />
+          <Route path="/jsonFormat" component={JsonFormat} />
+          <Route path="/reactHook" component={Hook} />
+          <Route path="/reactSpring" component={ReactSpring} />
+          <Redirect to="/" />
+        </Switch>
+      </Suspense>
     </CSSTransition>
   </TransitionGroup>
 ))
