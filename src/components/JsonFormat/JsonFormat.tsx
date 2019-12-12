@@ -3,15 +3,17 @@ import React, { useState, useEffect } from 'react'
 import {
   TextField,
   Typography,
-  Paper,
   Box,
   Tabs,
   Tab,
-  Fade
+  Fade,
+  Slider,
+  Button
 } from '@material-ui/core'
 import SwipeableViews from 'react-swipeable-views'
 import Add from '@material-ui/icons/Add'
 import Close from '@material-ui/icons/Close'
+import FileCopy from '@material-ui/icons/FileCopyOutlined'
 
 import JSONTree from './JSONTree'
 
@@ -35,6 +37,7 @@ function recursion(res: any): any {
 }
 
 const JsonFormat: React.FC = () => {
+  const [prettiy, setPrettiy] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const format = (jsonStr: string): any => {
     try {
@@ -51,16 +54,19 @@ const JsonFormat: React.FC = () => {
 
   const [jsonStr, setJsonStr] = useState('')
   const [res, setRes] = useState(() => format(jsonStr))
-
+  const [value, setValue] = useState(0)
+  const [tabSize, setTabSize] = useState(2)
   useEffect(() => {
-    setRes(() => format(jsonStr))
-  }, [jsonStr])
+    const res = format(jsonStr)
+    setRes(res)
+    setPrettiy(JSON.stringify(res, null, tabSize))
+  }, [jsonStr, tabSize])
 
   return (
     <>
       <Typography variant="h5">JSON Format</Typography>
       <TextField
-        label="Multiline"
+        label="JSON String"
         placeholder="input JSON String"
         multiline
         fullWidth
@@ -69,13 +75,43 @@ const JsonFormat: React.FC = () => {
           setJsonStr(e.target.value)
         }}
         rowsMax="10"
-        margin="normal"></TextField>
-      <Typography variant="subtitle1">Result</Typography>
-      <Paper>
-        <Box p={1}>
-          {errorMsg ? errorMsg : <JSONTree data={res} index={1} />}
+        margin="normal"
+        error={errorMsg !== ''}
+        helperText={errorMsg}
+        inputProps={{
+          style: { wordBreak: 'break-all' }
+        }}
+      />
+      <Tabs
+        value={value}
+        onChange={(e, v) => setValue(v)}
+        indicatorColor="primary"
+        textColor="primary">
+        <Tab label="result" />
+        <Tab label="pritty-print" />
+      </Tabs>
+      <SwipeableViews index={value} disabled>
+        <Box p={1}>{errorMsg === '' && <JSONTree data={res} index={1} />}</Box>
+        <Box p={2}>
+          {errorMsg === '' && value === 1 && (
+            <Box>
+              <Typography gutterBottom>tabSize</Typography>
+              <Slider
+                value={tabSize}
+                onChange={(e, v) => setTabSize(v as number)}
+                aria-labelledby="discrete-slider"
+                valueLabelDisplay="auto"
+                step={1}
+                min={0}
+                max={10}
+                style={{ width: 150, margin: '0 8px' }}
+              />
+              <Button startIcon={<FileCopy />}>复制</Button>
+              <Typography component="pre">{prettiy}</Typography>
+            </Box>
+          )}
         </Box>
-      </Paper>
+      </SwipeableViews>
     </>
   )
 }
