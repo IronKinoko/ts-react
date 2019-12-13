@@ -41,12 +41,10 @@ const JsonFormat: React.FC = () => {
 
   const format = (jsonStr: string): any => {
     try {
-      if (jsonStr !== '') {
-        setErrorMsg('')
-        const res: any = JSON.parse(jsonStr)
-        console.log(res)
-        return recursion(res)
-      }
+      setErrorMsg('')
+      const res: any = JSON.parse(jsonStr)
+      console.log(res)
+      return recursion(res)
     } catch (error) {
       setErrorMsg(error.message)
     }
