@@ -12,7 +12,8 @@ const mainPageRouter: RouteData[] = [
   { path: '/jsonFormat', name: 'JSON格式化', in: true },
   { path: '/test', name: '测试专用', in: true },
   { path: '/reactHook', name: 'React Hook', in: true },
-  { path: './reactSpring', name: 'React Spring', in: true }
+  { path: './reactSpring', name: 'React Spring', in: true },
+  { path: './transcoding', name: '转码', in: true }
 ]
 
 const Home: React.FC = () => {

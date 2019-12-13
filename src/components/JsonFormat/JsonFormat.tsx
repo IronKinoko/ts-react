@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
 import {
   TextField,
   Typography,
@@ -14,7 +13,7 @@ import SwipeableViews from 'react-swipeable-views'
 import Add from '@material-ui/icons/Add'
 import Close from '@material-ui/icons/Close'
 import FileCopy from '@material-ui/icons/FileCopyOutlined'
-
+import CopyToClipboard from 'react-copy-to-clipboard'
 import JSONTree from './JSONTree'
 
 function recursion(res: any): any {
@@ -39,6 +38,7 @@ function recursion(res: any): any {
 const JsonFormat: React.FC = () => {
   const [prettiy, setPrettiy] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
+
   const format = (jsonStr: string): any => {
     try {
       if (jsonStr !== '') {
@@ -106,7 +106,13 @@ const JsonFormat: React.FC = () => {
                 max={10}
                 style={{ width: 150, margin: '0 8px' }}
               />
-              <Button startIcon={<FileCopy />}>复制</Button>
+              <CopyToClipboard text={prettiy}>
+                <Button>
+                  <FileCopy />
+                  复制
+                </Button>
+              </CopyToClipboard>
+
               <Typography component="pre">{prettiy}</Typography>
             </Box>
           )}
