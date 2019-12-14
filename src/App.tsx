@@ -59,7 +59,7 @@ const App: React.FC = () => {
   return (
     <Box>
       <Nav />
-      <Box p={2} flex="1">
+      <Box p={2}>
         <Routers />
       </Box>
     </Box>
