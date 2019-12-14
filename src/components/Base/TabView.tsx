@@ -14,10 +14,10 @@ const TabView: React.FC<TabViewProps> = props => {
   return (
     <Box>
       <Tabs
-        value={props.value === undefined ? value : props.value}
+        value={props.value ?? value}
         onChange={(e, v) => {
           setValue(v)
-          props.onChange && props.onChange(e, v)
+          props.onChange?.(e, v)
         }}
         indicatorColor="primary"
         textColor="primary"
@@ -28,7 +28,7 @@ const TabView: React.FC<TabViewProps> = props => {
         ))}
       </Tabs>
       <SwipeableViews
-        index={props.value === undefined ? value : props.value}
+        index={props.value ?? value}
         onChangeIndex={(v: number): void => setValue(v)}
         disabled={props.swipeDisabled}>
         {props.children}

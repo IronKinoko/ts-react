@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 import ReactMarkDown from 'react-markdown'
 
 const Changelog: React.FC = () => {
@@ -7,6 +7,7 @@ const Changelog: React.FC = () => {
   return (
     <Box>
       <ReactMarkDown source={input} />
+      <Button />
     </Box>
   )
 }
