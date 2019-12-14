@@ -1,0 +1,26 @@
+
+.MuiButton-label
+  white-space: nowrap
+
+.link-button-enter
+  max-width: 0
+  padding-left: 0
+  padding-right: 0
+  opacity: 0
+  overflow: hidden
+  &-active
+    max-width: 150px
+    opacity: 1
+    transition: all .3s linear
+  &-done
+    overflow: visible
+    max-width: fit-content
+
+.link-button-exit
+  max-width: 150px
+  overflow: hidden
+  &-active
+    max-width: 0
+    padding-left: 0 !important
+    padding-right: 0 !important
+    transition: all .3s  linear

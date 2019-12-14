@@ -15,7 +15,7 @@ import Close from '@material-ui/icons/Close'
 import FileCopy from '@material-ui/icons/FileCopyOutlined'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import JSONTree from './JSONTree'
-
+import TabView from '../Base/TabView'
 function recursion(res: any): any {
   for (const key in res) {
     if (res.hasOwnProperty(key)) {
@@ -82,19 +82,16 @@ const JsonFormat: React.FC = () => {
           style: { wordBreak: 'break-all' }
         }}
       />
-      <Tabs
-        value={value}
+      <TabView
+        tabs={['result', 'pritty-print']}
         onChange={(e, v) => setValue(v)}
-        indicatorColor="primary"
-        textColor="primary">
-        <Tab label="result" />
-        <Tab label="pritty-print" />
-      </Tabs>
-      <SwipeableViews index={value} disabled>
-        <Box p={1}>{errorMsg === '' && <JSONTree data={res} index={1} />}</Box>
-        <Box p={2}>
+        swipeDisabled>
+        <Box p={2} pl={1}>
+          {errorMsg === '' && <JSONTree data={res} index={1} />}
+        </Box>
+        <Box p={2} overflow="auto">
           {errorMsg === '' && value === 1 && (
-            <Box>
+            <>
               <Typography gutterBottom>tabSize</Typography>
               <Slider
                 value={tabSize}
@@ -114,10 +111,10 @@ const JsonFormat: React.FC = () => {
               </CopyToClipboard>
 
               <Typography component="pre">{prettiy}</Typography>
-            </Box>
+            </>
           )}
         </Box>
-      </SwipeableViews>
+      </TabView>
     </>
   )
 }

@@ -71,8 +71,8 @@ const Hook: React.FC = () => {
           <Typography component="p">他们打印出来的log不一样</Typography>
         </Box>
       </Paper>
-      <Box display="flex">
-        <Box flex="1" p={1} borderRight="1px solid #000">
+      <Box display="flex" overflow="auto">
+        <Box flex="1" p={1} borderRight="1px solid #ddd">
           {list.map((v, k) => v)}
         </Box>
         <Box flex="1" p={1}>

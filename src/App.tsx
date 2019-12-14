@@ -7,7 +7,7 @@ import Nav from './components/Nav/Nav'
 
 import './App.sass'
 import { CircularProgress } from '@material-ui/core'
-
+import RQcode from './components/QRcode/QRcode'
 const Home = React.lazy(() =>
   import(/* webpackChunkName: 'Home'*/ './components/Home/Home')
 )
@@ -48,6 +48,7 @@ const Routers = withRouter(({ location, history }) => (
           <Route path="/reactHook" component={Hook} />
           <Route path="/reactSpring" component={ReactSpring} />
           <Route path="/transcoding" component={Transcoding} />
+          <Route path="/qrcode" component={RQcode} />
           <Redirect to="/" />
         </Switch>
       </Suspense>
@@ -57,7 +58,7 @@ const Routers = withRouter(({ location, history }) => (
 
 const App: React.FC = () => {
   return (
-    <Box>
+    <Box className="App">
       <Nav />
       <Box p={2}>
         <Routers />
