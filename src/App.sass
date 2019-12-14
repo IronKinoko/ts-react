@@ -4,28 +4,34 @@
   opacity: 0
   position: absolute
   left: 100vw
+  top: 0
   width: 100%
   &-active
     opacity: 1
+    top: 0
     left: 0
     transition: all .3s ease-in-out
 
 .forward-exit
   opacity: 1
   position: absolute
+  top: 0
   left: 0
   width: 100%
   &-active
+    top: 0
     opacity: 0
     left: -100vw
     transition: all .3s ease-in-out
 
 .back-enter
+  top: 0
   opacity: 0
   position: absolute
   left: -100vw
   width: 100%
   &-active
+    top: 0
     opacity: 1
     left: 0
     transition: all .3s ease-in-out
@@ -33,9 +39,11 @@
 .back-exit
   opacity: 1
   position: absolute
+  top: 0
   left: 0
   width: 100%
   &-active
+    top: 0
     opacity: 0
     left: 100vw
     transition: all .3s ease-in-out
@@ -45,3 +53,11 @@
 .button-gutter
   button + button
     margin-left: 10px
+.app-footer
+  position: fixed
+  display: flex
+  right: 0
+  left: 0
+  bottom: 10px
+  justify-content: center
+  align-items: center

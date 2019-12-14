@@ -3,11 +3,12 @@ import { hot } from 'react-hot-loader/root'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Box from '@material-ui/core/Box'
-import Nav from './components/Nav/Nav'
+import Nav from './components/Base/Nav'
 
 import './App.sass'
 import { CircularProgress } from '@material-ui/core'
 import RQcode from './components/QRcode/QRcode'
+import Changelog from './components/Changelog/Changelog'
 const Home = React.lazy(() =>
   import(/* webpackChunkName: 'Home'*/ './components/Home/Home')
 )
@@ -49,6 +50,7 @@ const Routers = withRouter(({ location, history }) => (
           <Route path="/reactSpring" component={ReactSpring} />
           <Route path="/transcoding" component={Transcoding} />
           <Route path="/qrcode" component={RQcode} />
+          <Route path="/changelog" component={Changelog} />
           <Redirect to="/" />
         </Switch>
       </Suspense>
