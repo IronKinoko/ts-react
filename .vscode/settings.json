@@ -1,19 +1,4 @@
 {
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    {
-      "language": "react",
-      "autoFix": true
-    },
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
-  ],
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
@@ -32,5 +17,8 @@
     "**/yarn-debug.log*": true,
     "**/yarn-error.log*": true,
     ".idea": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
