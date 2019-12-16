@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { Grid, Button, TextField, Box, Typography } from '@material-ui/core'
+import {
+  Grid,
+  Button,
+  TextField,
+  Box,
+  Typography,
+  InputAdornment
+} from '@material-ui/core'
 import Search from '@material-ui/icons/Search'
 import { Link as RouteLink } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -49,6 +56,7 @@ const GridContainer: React.FC = props => {
 
 const Home: React.FC = () => {
   const [filter, setFilter] = useState('')
+
   const filterMainPageRouter: ClassifyProps[] = classifies.map(o => {
     return {
       title: o.title,
@@ -65,22 +73,21 @@ const Home: React.FC = () => {
     <Box>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Grid container spacing={1} alignItems="flex-end">
-            <Grid item>
-              <Search />
-            </Grid>
-            <Grid item>
-              <TextField
-                placeholder="搜索"
-                label="Search"
-                onChange={(e): void => {
-                  setFilter(e.target.value)
-                }}
-                helperText={emptyResult ? 'not fond' : null}
-                error={emptyResult}
-              />
-            </Grid>
-          </Grid>
+          <TextField
+            placeholder="Search..."
+            onChange={(e): void => {
+              setFilter(e.target.value)
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              )
+            }}
+            helperText={emptyResult ? 'not fond' : null}
+            error={emptyResult}
+          />
         </Grid>
         {filterMainPageRouter.map(o => (
           <CSSTransition
