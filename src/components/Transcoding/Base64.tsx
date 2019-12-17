@@ -26,7 +26,7 @@ const Base64: React.FC = () => {
     setHelp('')
   }
   return (
-    <Box pt={2}>
+    <Box pt={2} p={1}>
       <TextField
         value={content}
         onChange={e => {

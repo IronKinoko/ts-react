@@ -15,7 +15,7 @@ const URLdecode: React.FC = () => {
     setUrl('')
   }
   return (
-    <Box pt={2}>
+    <Box pt={2} p={1}>
       <TextField
         value={url}
         onChange={e => setUrl(e.target.value)}

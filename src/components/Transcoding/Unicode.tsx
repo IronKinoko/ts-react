@@ -25,7 +25,7 @@ const Unicode: React.FC = () => {
     setOrigin('')
   }
   return (
-    <Box pt={2}>
+    <Box pt={2} p={1}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <TextField
