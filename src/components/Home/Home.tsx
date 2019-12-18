@@ -7,6 +7,7 @@ import {
   Typography,
   InputAdornment
 } from '@material-ui/core'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Search from '@material-ui/icons/Search'
 import { Link as RouteLink } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -54,7 +55,18 @@ const GridContainer: React.FC = props => {
   )
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& .MuiButton-label': {
+        whiteSpace: 'nowrap'
+      }
+    }
+  })
+)
+
 const Home: React.FC = () => {
+  const classes = useStyles()
   const [filter, setFilter] = useState('')
 
   const filterMainPageRouter: ClassifyProps[] = classifies.map(o => {
@@ -109,7 +121,9 @@ const Home: React.FC = () => {
                     classNames="link-button">
                     <Grid item>
                       <RouteLink to={item.path}>
-                        <Button variant="outlined">{item.name}</Button>
+                        <Button variant="outlined" className={classes.root}>
+                          {item.name}
+                        </Button>
                       </RouteLink>
                     </Grid>
                   </CSSTransition>

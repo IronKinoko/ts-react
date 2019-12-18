@@ -7,8 +7,7 @@ import Nav from './components/Base/Nav'
 
 import './App.sass'
 import { CircularProgress } from '@material-ui/core'
-import RQcode from './components/QRcode/QRcode'
-import Changelog from './components/Changelog/Changelog'
+
 const Home = React.lazy(() =>
   import(/* webpackChunkName: 'Home'*/ './components/Home/Home')
 )
@@ -33,6 +32,13 @@ const Transcoding = React.lazy(() =>
     /* webpackChunkName: 'Transcoding'*/ './components/Transcoding/Transcoding'
   )
 )
+const QRcode = React.lazy(() =>
+  import(/* webpackChunkName: 'QRcode'*/ './components/QRcode/QRcode')
+)
+const Changelog = React.lazy(() =>
+  import(/* webpackChunkName: 'Changelog'*/ './components/Changelog/Changelog')
+)
+
 const actionsMap = { PUSH: 'forward', POP: 'back', REPLACE: '' }
 const Routers = withRouter(({ location, history }) => (
   <TransitionGroup
@@ -49,7 +55,7 @@ const Routers = withRouter(({ location, history }) => (
           <Route path="/reactHook" component={Hook} />
           <Route path="/reactSpring" component={ReactSpring} />
           <Route path="/transcoding" component={Transcoding} />
-          <Route path="/qrcode" component={RQcode} />
+          <Route path="/qrcode" component={QRcode} />
           <Route path="/changelog" component={Changelog} />
           <Redirect to="/" />
         </Switch>
