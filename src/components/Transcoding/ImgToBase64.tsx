@@ -75,6 +75,9 @@ const ImgToBase64: React.FC = () => {
         return { ...t, base64FileSize: (res as string).length }
       })
       setContent(res as string)
+      if (inputElement.current) {
+        inputElement.current.value = ''
+      }
     }
     const files = event.target.files
     if (files !== null) {
@@ -98,7 +101,12 @@ const ImgToBase64: React.FC = () => {
     if (imgElement?.current) {
       imgElement.current.src = content
       imgElement.current.style.display = 'block'
-      const blob = dataURItoBlob(content)
+      let blob
+      try {
+        blob = dataURItoBlob(content)
+      } catch (e) {
+        blob = { type: '', size: 0 }
+      }
       setImgProps({
         fileType: blob.type,
         fileSize: blob.size,
@@ -127,7 +135,7 @@ const ImgToBase64: React.FC = () => {
               </Typography>
             }
           />
-          <Box pt={2}>
+          <Box pt={2} textAlign="right">
             <ButtonGroup color="primary">
               <Button onClick={handleUploadFile}>上传图片转成base64</Button>
               <Button onClick={handleBase64ToImg}>base64转成图片</Button>

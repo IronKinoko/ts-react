@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Box, TextField, Button, ButtonGroup } from '@material-ui/core'
 import ClearAllIcon from '@material-ui/icons/ClearAll'
-
+import FileCopyIcon from '@material-ui/icons/FileCopy'
+import CopyToClipboard from 'react-copy-to-clipboard'
 const URLdecode: React.FC = () => {
   const [url, setUrl] = useState('')
 
@@ -37,6 +38,11 @@ const URLdecode: React.FC = () => {
           <Button style={{ whiteSpace: 'nowrap' }} onClick={handleURLdecode}>
             URL解码
           </Button>
+          <CopyToClipboard text={url}>
+            <Button>
+              <FileCopyIcon />
+            </Button>
+          </CopyToClipboard>
           <Button style={{ whiteSpace: 'nowrap' }} onClick={handleReset}>
             <ClearAllIcon />
           </Button>

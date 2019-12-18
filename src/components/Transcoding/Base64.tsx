@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Box, TextField, ButtonGroup, Button } from '@material-ui/core'
 import ClearAllIcon from '@material-ui/icons/ClearAll'
-
+import FileCopyIcon from '@material-ui/icons/FileCopy'
+import CopyToClipboard from 'react-copy-to-clipboard'
 const Base64: React.FC = () => {
   const [content, setContent] = useState('')
   const [help, setHelp] = useState('')
@@ -46,18 +47,14 @@ const Base64: React.FC = () => {
 
       <Box textAlign="right" pt={2}>
         <ButtonGroup color="primary">
-          <Button
-            style={{ whiteSpace: 'nowrap' }}
-            onClick={handleContentEncode}>
-            encode
-          </Button>
-
-          <Button
-            style={{ whiteSpace: 'nowrap' }}
-            onClick={handleContentDecode}>
-            decode
-          </Button>
-          <Button style={{ whiteSpace: 'nowrap' }} onClick={handleReset}>
+          <Button onClick={handleContentEncode}>encode</Button>
+          <Button onClick={handleContentDecode}>decode</Button>
+          <CopyToClipboard text={content}>
+            <Button>
+              <FileCopyIcon />
+            </Button>
+          </CopyToClipboard>
+          <Button onClick={handleReset}>
             <ClearAllIcon />
           </Button>
         </ButtonGroup>
