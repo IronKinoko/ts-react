@@ -44,7 +44,7 @@ const QRcodeWarp: React.FC = () => {
   const [content, setContent] = useState('')
   const [open, setOpen] = useState(false)
   const inputElement = useRef<HTMLInputElement>(null)
-  const backDropElement = useRef<any>(null)
+  const backDropElement = useRef<HTMLDivElement>(null)
 
   const handleDecodeQRcode = () => {
     inputElement?.current?.click()
@@ -79,6 +79,7 @@ const QRcodeWarp: React.FC = () => {
   const handleDrop = useCallback((e: DragEvent) => {
     e.stopPropagation()
     e.preventDefault()
+    setOpen(false)
     if (e === null) return
     if (e?.dataTransfer?.files) {
       const files = e.dataTransfer.files
@@ -92,15 +93,23 @@ const QRcodeWarp: React.FC = () => {
     e.preventDefault()
     setOpen(true)
   }, [])
+  const handleDragOver = useCallback((e: DragEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+  }, [])
+
   useEffect(() => {
-    document.addEventListener('drop', handleDrop)
-    document.addEventListener('dragenter', handleDragStart)
+    if (backDropElement.current) {
+      backDropElement.current.addEventListener('drop', handleDrop)
+      document.addEventListener('dragenter', handleDragStart)
+      document.addEventListener('dragover', handleDragOver)
+    }
 
     return () => {
-      document.removeEventListener('drop', handleDrop)
-      document.addEventListener('dragenter', handleDragStart)
+      document.removeEventListener('dragenter', handleDragStart)
+      document.removeEventListener('dragover', handleDragOver)
     }
-  }, [handleDrop, handleDragStart])
+  }, [handleDrop, handleDragStart, handleDragOver])
 
   return (
     <Box pt={2} p={1}>
