@@ -95,7 +95,7 @@ const QRcodeWarp: React.FC = () => {
       decodeFile(file)
     }
   }, [])
-  const handleDragStart = useCallback((e: DragEvent) => {
+  const handleDragEnter = useCallback((e: DragEvent) => {
     e.stopPropagation()
     e.preventDefault()
     setOpen(true)
@@ -104,19 +104,38 @@ const QRcodeWarp: React.FC = () => {
     e.stopPropagation()
     e.preventDefault()
   }, [])
+  const handleDragEnd = useCallback((e: DragEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+    setOpen(false)
+  }, [])
+  const handleDragStart = useCallback((e: DragEvent) => {
+    e.stopPropagation()
+    e.preventDefault()
+  }, [])
 
   useEffect(() => {
     if (backDropElement.current) {
       backDropElement.current.addEventListener('drop', handleDrop)
-      document.addEventListener('dragenter', handleDragStart)
+      document.addEventListener('dragenter', handleDragEnter)
       document.addEventListener('dragover', handleDragOver)
+      document.addEventListener('dragend', handleDragEnd)
+      document.addEventListener('dragstart', handleDragStart)
     }
 
     return () => {
-      document.removeEventListener('dragenter', handleDragStart)
+      document.removeEventListener('dragenter', handleDragEnter)
       document.removeEventListener('dragover', handleDragOver)
+      document.removeEventListener('dragend', handleDragEnd)
+      document.removeEventListener('dragstart', handleDragStart)
     }
-  }, [handleDrop, handleDragStart, handleDragOver])
+  }, [
+    handleDrop,
+    handleDragEnter,
+    handleDragOver,
+    handleDragEnd,
+    handleDragStart
+  ])
 
   return (
     <Box pt={2} p={1}>

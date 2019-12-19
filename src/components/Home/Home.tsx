@@ -34,7 +34,9 @@ const classifies: ClassifyProps[] = [
         name: '转码',
         keyWords: 'unicode base64 url'
       },
-      { path: './qrcode', name: '二维码工具', keyWords: 'qrcode' }
+      { path: './qrcode', name: '二维码工具', keyWords: 'qrcode' },
+      { path: './colorPicker', name: '拾色器', keyWords: 'colorpicker' },
+      { path: './barcode', name: '条形码工具', keyWords: 'barcode' }
     ]
   },
   {

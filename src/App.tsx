@@ -4,9 +4,11 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Box from '@material-ui/core/Box'
 import Nav from './components/Base/Nav'
+import ColorPicker from './components/ColorPicker/ColorPicker'
 
 import './App.sass'
 import { CircularProgress } from '@material-ui/core'
+import Barcode from './components/Barcode/Barcode'
 
 const Home = React.lazy(() =>
   import(/* webpackChunkName: 'Home'*/ './components/Home/Home')
@@ -57,6 +59,8 @@ const Routers = withRouter(({ location, history }) => (
           <Route path="/transcoding" component={Transcoding} />
           <Route path="/qrcode" component={QRcode} />
           <Route path="/changelog" component={Changelog} />
+          <Route path="/colorPicker" component={ColorPicker} />
+          <Route path="/barcode" component={Barcode} />
           <Redirect to="/" />
         </Switch>
       </Suspense>
