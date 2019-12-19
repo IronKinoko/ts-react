@@ -4,11 +4,9 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Box from '@material-ui/core/Box'
 import Nav from './components/Base/Nav'
-import ColorPicker from './components/ColorPicker/ColorPicker'
 
 import './App.sass'
 import { CircularProgress } from '@material-ui/core'
-import Barcode from './components/Barcode/Barcode'
 
 const Home = React.lazy(() =>
   import(/* webpackChunkName: 'Home'*/ './components/Home/Home')
@@ -39,6 +37,14 @@ const QRcode = React.lazy(() =>
 )
 const Changelog = React.lazy(() =>
   import(/* webpackChunkName: 'Changelog'*/ './components/Changelog/Changelog')
+)
+const ColorPicker = React.lazy(() =>
+  import(
+    /* webpackChunkName: 'ColorPicker'*/ './components/ColorPicker/ColorPicker'
+  )
+)
+const Barcode = React.lazy(() =>
+  import(/* webpackChunkName: 'Barcode'*/ './components/Barcode/Barcode')
 )
 
 const actionsMap = { PUSH: 'forward', POP: 'back', REPLACE: '' }

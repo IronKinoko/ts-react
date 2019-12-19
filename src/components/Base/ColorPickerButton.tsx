@@ -42,7 +42,15 @@ const ColorPickerButton: React.FC<ColorPickerButtonProps> = props => {
         {props.value}
       </Button>
       <Box hidden={!open}>
-        <Box className="cover-mask" onClick={() => setOpen(false)} />
+        <Box
+          position="fixed"
+          top="0"
+          left="0"
+          right="0"
+          bottom="0"
+          zIndex="99"
+          onClick={() => setOpen(false)}
+        />
         <Box position="absolute" zIndex="100">
           <ChromePicker color={props.value} onChange={v => props.onChange(v)} />
         </Box>
