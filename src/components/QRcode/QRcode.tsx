@@ -54,6 +54,7 @@ const QRcodeWarp: React.FC = () => {
     if (file === undefined) return
     qrcode.decode(getObjectURL(file))
     qrcode.callback = function(str: string) {
+      str = decodeURI(escape(str))
       setContent(str)
     }
     if (inputElement.current) {
