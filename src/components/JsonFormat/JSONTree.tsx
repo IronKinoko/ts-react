@@ -3,6 +3,7 @@ import React from 'react'
 import { TreeView, TreeItem } from '@material-ui/lab'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import { Typography, Box } from '@material-ui/core'
 type propsType = {
   children?: React.ReactNode
   data: any
@@ -20,7 +21,7 @@ const style = {
     color: '#2a00ff'
   },
   gray: {
-    color: '#e3e3e3'
+    color: '#b7b7b7'
   }
 }
 
@@ -62,20 +63,17 @@ function renderTree(props: propsType): JSX.Element[] | undefined {
             <JSONTree data={element} index={props.index + 1} />
           </TreeItem>
         )
-      } else if (typeof element == 'string' || typeof element == 'number') {
+      } else if (
+        typeof element == 'string' ||
+        typeof element == 'number' ||
+        typeof element === 'boolean' ||
+        element === null
+      ) {
         arr.push(
           <TreeItem
             key={Math.random()}
             nodeId={guid()}
             label={<StringComp label={key} value={element} />}
-          />
-        )
-      } else if (Object.prototype.toString.call(element) === '[object Null]') {
-        arr.push(
-          <TreeItem
-            key={Math.random()}
-            nodeId={guid()}
-            label={<StringComp label={key} value={'null'} />}
           />
         )
       } else if (typeof element == 'object') {
@@ -102,9 +100,11 @@ type ArrayProps = {
 const ArrayComp: React.FC<ArrayProps> = props => {
   return (
     <>
-      <span style={style.label}>{props.label}</span>
-      <span>: </span>
-      <span>Array({props.length})</span>
+      <Typography component="span" style={style.label}>
+        {props.label}
+      </Typography>
+      <Typography component="span">: </Typography>
+      <Typography component="span">Array({props.length})</Typography>
     </>
   )
 }
@@ -112,23 +112,31 @@ const ArrayComp: React.FC<ArrayProps> = props => {
 type StringProps = {
   children?: React.ReactNode
   label: string
-  value: string | React.ReactText
+  value: string | number | boolean
 }
 const StringComp: React.FC<StringProps> = props => {
   return (
     <>
-      <span style={style.label}>{props.label}</span>
-      <span>：</span>
+      <Typography component="span" style={style.label}>
+        {props.label}
+      </Typography>
+      <Typography component="span">：</Typography>
       {typeof props.value === 'string' ? (
-        props.value === 'null' ? (
-          <span style={style.gray}>{props.value}</span>
-        ) : (
-          <>
-            "<span style={style.value}>{props.value}</span>"
-          </>
-        )
+        <>
+          "
+          <Typography component="span" style={style.value}>
+            {props.value}
+          </Typography>
+          "
+        </>
+      ) : props.value === null ? (
+        <Typography component="span" style={style.gray}>
+          {JSON.stringify(props.value)}
+        </Typography>
       ) : (
-        <span style={style.primary}>{props.value}</span>
+        <Typography component="span" style={style.primary}>
+          {JSON.stringify(props.value)}
+        </Typography>
       )}
     </>
   )
@@ -142,9 +150,12 @@ type ObjectProps = {
 const ObjectComp: React.FC<ObjectProps> = props => {
   return (
     <>
-      <span>
-        <span style={style.label}>{props.label || props.index}</span>: object
-      </span>
+      <Typography component="span">
+        <Typography component="span" style={style.label}>
+          {props.label || props.index}
+        </Typography>
+        : object
+      </Typography>
     </>
   )
 }
@@ -154,7 +165,7 @@ const JSONTree: React.FC<propsType> = (props: propsType) => {
     <TreeView
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
-      defaultEndIcon={<div style={{ width: 24 }} />}>
+      defaultEndIcon={<Box style={{ width: 24 }} />}>
       {renderTree(props)}
     </TreeView>
   )

@@ -1,6 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const rewireReactHotLoader = require('react-app-rewire-hot-loader')
-const { override, fixBabelImports } = require('customize-cra')
+const {
+  override,
+  fixBabelImports,
+  addWebpackModuleRule
+} = require('customize-cra')
 
 if (process.env.NODE_ENV === 'production') {
   process.env.GENERATE_SOURCEMAP = 'false'
@@ -22,5 +25,6 @@ module.exports = override(
     // Use "'libraryDirectory': ''," if your bundler does not support ES modules
     libraryDirectory: 'esm',
     camel2DashComponentName: false
-  })
+  }),
+  addWebpackModuleRule({ test: /\.md$/, use: 'raw-loader' })
 )
