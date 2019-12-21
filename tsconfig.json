@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -13,14 +17,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "baseUrl": "./",
-    "paths": {
-      "plugins/*": ["src/plugins/*"],
-      "components/*": ["src/components/*"],
-      "utils/*": ["src/utils/*"],
-      "@/*": ["src/*"]
-    }
+    "jsx": "react"
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*"
+  ],
+  "extends": "./paths.json"
 }
