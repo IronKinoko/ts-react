@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react'
-import { Box, Grid, Typography } from '@material-ui/core'
+import React, { useState, useCallback, useEffect } from 'react'
+import { Box, Grid, Typography, TextField } from '@material-ui/core'
 import Color from 'color'
 import {
   MaterialPicker,
@@ -8,10 +8,20 @@ import {
   SwatchesPicker,
   HSLColor
 } from 'react-color'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  useTheme
+} from '@material-ui/core/styles'
 import materialColorSource from './color.json'
-
-const useStyles = makeStyles((theme: Theme) =>
+import CopyToClipboard from 'react-copy-to-clipboard'
+import Message from 'utils/Message'
+interface StyleProps {
+  color: string
+  opacity: number
+}
+const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
     root: {
       '& .swatches-picker': {
@@ -22,45 +32,162 @@ const useStyles = makeStyles((theme: Theme) =>
     link: {
       cursor: 'pointer',
       marginLeft: 8
+    },
+    bgBox: {
+      width: 130,
+      height: 130,
+      background:
+        'url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==") left center'
+    },
+    colorBox: {
+      position: 'absolute',
+      left: 8,
+      top: 8,
+      opacity: props => props.opacity,
+      width: 130,
+      height: 130,
+      borderRadius: 2,
+      boxShadow:
+        'rgba(0, 0, 0, 0.12) 0px 2px 10px, rgba(0, 0, 0, 0.16) 0px 2px 5px',
+      backgroundColor: props => props.color
+    },
+    colorInput: {
+      '& .MuiInput-underline:before': {
+        borderBottomColor: props => props.color,
+        borderBottomWidth: 2
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: props => props.color
+      }
+    },
+    card: {
+      boxSizing: 'border-box',
+      padding: 16,
+      width: 276,
+      borderRadius: 2,
+      boxShadow:
+        'rgba(0, 0, 0, 0.12) 0px 2px 10px, rgba(0, 0, 0, 0.16) 0px 2px 5px'
     }
   })
 )
 
 const ColorPicker: React.FC = () => {
-  const classes = useStyles()
-  const [color, setColor] = useState<HSLColor | string>('#3F51B5')
+  const theme = useTheme<Theme>()
+
+  const [color, setColor] = useState<HSLColor | string>(
+    Color(theme.palette.primary.main)
+      .hsl()
+      .toString()
+  )
+  useEffect(() => {
+    let hslObj = Color(theme.palette.primary.main, 'hex')
+      .hsl()
+      .object()
+    let { h, l, s } = hslObj
+    setColor({ h: +h.toFixed(2), s: s / 100, l: l / 100, a: 1 })
+  }, [theme])
 
   const handleColorChange = useCallback(() => {
     if (typeof color === 'string') {
       return { color, opacity: 1 }
     } else {
       const { h, s, l, a } = color
-      return { color: { h, s: s * 100, l: l * 100 }, opacity: a }
+      return {
+        color: {
+          h: h.toFixed(0),
+          s: s * 100,
+          l: l * 100
+        },
+        opacity: a
+      }
     }
   }, [color])
+  const classes = useStyles({
+    color: Color(handleColorChange().color)
+      .hex()
+      .toString(),
+    opacity: handleColorChange().opacity as number
+  })
 
+  const hex = Color(handleColorChange().color)
+    .hex()
+    .toString()
+  const rgb = Color(handleColorChange().color)
+    .alpha(handleColorChange().opacity as number)
+    .rgb()
+    .toString()
+  const hsl = Color(handleColorChange().color)
+    .alpha(handleColorChange().opacity as number)
+    .hsl()
+    .toString()
   return (
     <Box p={2}>
       <Grid container spacing={8} justify="center">
         <Grid item xs={12} md="auto">
           <Grid container spacing={2}>
-            <Grid item>
-              <Box
-                style={{
-                  opacity: handleColorChange().opacity,
-                  width: 130,
-                  height: 130,
-                  borderRadius: 2,
-                  boxShadow:
-                    'rgba(0, 0, 0, 0.12) 0px 2px 10px, rgba(0, 0, 0, 0.16) 0px 2px 5px',
-                  backgroundColor: Color(handleColorChange().color)
-                    .hex()
-                    .toString()
-                }}
-              />
+            <Grid
+              item
+              style={{
+                position: 'relative'
+              }}>
+              <Box className={classes.bgBox}></Box>
+              <Box className={classes.colorBox} />
             </Grid>
             <Grid item>
               <MaterialPicker color={color} onChange={v => setColor(v.hsl)} />
+            </Grid>
+          </Grid>
+          <Grid container spacing={2}>
+            <Grid item>
+              <Box className={classes.card}>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <CopyToClipboard
+                      text={hex}
+                      onCopy={() => Message.success('Hex color copied')}>
+                      <TextField
+                        value={hex}
+                        fullWidth
+                        label="HEX"
+                        InputProps={{
+                          readOnly: true
+                        }}
+                        className={classes.colorInput}
+                      />
+                    </CopyToClipboard>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CopyToClipboard
+                      text={rgb}
+                      onCopy={() => Message.success('RGB color copied')}>
+                      <TextField
+                        value={rgb}
+                        fullWidth
+                        label="RGB"
+                        InputProps={{
+                          readOnly: true
+                        }}
+                        className={classes.colorInput}
+                      />
+                    </CopyToClipboard>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <CopyToClipboard
+                      text={hsl}
+                      onCopy={() => Message.success('Hsl color copied')}>
+                      <TextField
+                        value={hsl}
+                        fullWidth
+                        label="HSL"
+                        InputProps={{
+                          readOnly: true
+                        }}
+                        className={classes.colorInput}
+                      />
+                    </CopyToClipboard>
+                  </Grid>
+                </Grid>
+              </Box>
             </Grid>
           </Grid>
         </Grid>

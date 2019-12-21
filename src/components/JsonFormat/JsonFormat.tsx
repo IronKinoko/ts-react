@@ -16,6 +16,7 @@ import FileCopy from '@material-ui/icons/FileCopyOutlined'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import JSONTree from './JSONTree'
 import TabView from '../Base/TabView'
+import Message from 'utils/Message'
 function recursion(res: any): any {
   for (const key in res) {
     if (res.hasOwnProperty(key)) {
@@ -103,7 +104,9 @@ const JsonFormat: React.FC = () => {
                 max={10}
                 style={{ width: 150, margin: '0 8px' }}
               />
-              <CopyToClipboard text={prettiy}>
+              <CopyToClipboard
+                text={prettiy}
+                onCopy={() => Message.success('copied')}>
                 <Button>
                   <FileCopy />
                   复制

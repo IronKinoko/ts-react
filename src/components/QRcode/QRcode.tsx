@@ -14,7 +14,8 @@ import ClearAllIcon from '@material-ui/icons/ClearAll'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import QRcode from 'qrcode.react'
-import qrcode from '../../plugin/reqrcode'
+import qrcode from '../../plugins/reqrcode'
+import Message from 'utils/Message'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -155,7 +156,9 @@ const QRcodeWarp: React.FC = () => {
           <Box textAlign="right" pt={2}>
             <ButtonGroup color="primary">
               <Button onClick={handleDecodeQRcode}>解析二维码</Button>
-              <CopyToClipboard text={content}>
+              <CopyToClipboard
+                text={content}
+                onCopy={() => Message.success('copied')}>
                 <Button>
                   <FileCopyIcon />
                 </Button>

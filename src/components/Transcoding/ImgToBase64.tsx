@@ -12,6 +12,7 @@ import ClearAllIcon from '@material-ui/icons/ClearAll'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import filesize from 'filesize'
+import Message from 'utils/Message'
 
 function dataURItoBlob(dataURI: string) {
   // convert base64 to raw binary data held in a string
@@ -139,7 +140,9 @@ const ImgToBase64: React.FC = () => {
             <ButtonGroup color="primary">
               <Button onClick={handleUploadFile}>上传图片转成base64</Button>
               <Button onClick={handleBase64ToImg}>base64转成图片</Button>
-              <CopyToClipboard text={content}>
+              <CopyToClipboard
+                text={content}
+                onCopy={() => Message.success('copied')}>
                 <Button>
                   <FileCopyIcon />
                 </Button>

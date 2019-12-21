@@ -2,8 +2,10 @@ const rewireReactHotLoader = require('react-app-rewire-hot-loader')
 const {
   override,
   fixBabelImports,
-  addWebpackModuleRule
+  addWebpackModuleRule,
+  addWebpackAlias
 } = require('customize-cra')
+const path = require('path')
 
 if (process.env.NODE_ENV === 'production') {
   process.env.GENERATE_SOURCEMAP = 'false'
@@ -26,5 +28,10 @@ module.exports = override(
     libraryDirectory: 'esm',
     camel2DashComponentName: false
   }),
-  addWebpackModuleRule({ test: /\.md$/, use: 'raw-loader' })
+  addWebpackModuleRule({ test: /\.md$/, use: 'raw-loader' }),
+  addWebpackAlias({
+    utils: path.resolve(__dirname, 'src/utils'),
+    components: path.resolve(__dirname, 'src/components'),
+    plugins: path.resolve(__dirname, 'src/plugins')
+  })
 )

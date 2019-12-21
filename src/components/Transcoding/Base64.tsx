@@ -3,6 +3,7 @@ import { Box, TextField, ButtonGroup, Button } from '@material-ui/core'
 import ClearAllIcon from '@material-ui/icons/ClearAll'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import CopyToClipboard from 'react-copy-to-clipboard'
+import Message from 'utils/Message'
 const Base64: React.FC = () => {
   const [content, setContent] = useState('')
   const [help, setHelp] = useState('')
@@ -49,7 +50,9 @@ const Base64: React.FC = () => {
         <ButtonGroup color="primary">
           <Button onClick={handleContentEncode}>encode</Button>
           <Button onClick={handleContentDecode}>decode</Button>
-          <CopyToClipboard text={content}>
+          <CopyToClipboard
+            text={content}
+            onCopy={() => Message.success('copied')}>
             <Button>
               <FileCopyIcon />
             </Button>
