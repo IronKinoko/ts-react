@@ -71,6 +71,30 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   })
 )
 
+interface ColorInputProps {
+  value: string
+  label: string
+  className: any
+}
+const ColorInput: React.FC<ColorInputProps> = props => {
+  const { value, label, className } = props
+  return (
+    <CopyToClipboard
+      text={value}
+      onCopy={() => Message.success(`${label} color copied`)}>
+      <TextField
+        value={value}
+        fullWidth
+        label={label}
+        InputProps={{
+          readOnly: true
+        }}
+        className={className}
+      />
+    </CopyToClipboard>
+  )
+}
+
 const ColorPicker: React.FC = () => {
   const theme = useTheme<Theme>()
 
@@ -150,66 +174,32 @@ const ColorPicker: React.FC = () => {
               <Box className={classes.card}>
                 <Grid container spacing={1}>
                   <Grid item xs={6}>
-                    <CopyToClipboard
-                      text={CSSHex}
-                      onCopy={() => Message.success('CSS Hex color copied')}>
-                      <TextField
-                        value={CSSHex}
-                        fullWidth
-                        label="CSS Hex"
-                        InputProps={{
-                          readOnly: true
-                        }}
-                        className={classes.colorInput}
-                      />
-                    </CopyToClipboard>
+                    <ColorInput
+                      value={CSSHex}
+                      className={classes.colorInput}
+                      label="CSS Hex"
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                    <CopyToClipboard
-                      text={AndriodHex}
-                      onCopy={() =>
-                        Message.success('Andriod Hex color copied')
-                      }>
-                      <TextField
-                        value={AndriodHex}
-                        fullWidth
-                        label="Andriod Hex"
-                        InputProps={{
-                          readOnly: true
-                        }}
-                        className={classes.colorInput}
-                      />
-                    </CopyToClipboard>
+                    <ColorInput
+                      value={AndriodHex}
+                      className={classes.colorInput}
+                      label="Andriod Hex"
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <CopyToClipboard
-                      text={rgb}
-                      onCopy={() => Message.success('RGB color copied')}>
-                      <TextField
-                        value={rgb}
-                        fullWidth
-                        label="RGB"
-                        InputProps={{
-                          readOnly: true
-                        }}
-                        className={classes.colorInput}
-                      />
-                    </CopyToClipboard>
+                    <ColorInput
+                      value={rgb}
+                      className={classes.colorInput}
+                      label="RGB"
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <CopyToClipboard
-                      text={hsl}
-                      onCopy={() => Message.success('Hsl color copied')}>
-                      <TextField
-                        value={hsl}
-                        fullWidth
-                        label="HSL"
-                        InputProps={{
-                          readOnly: true
-                        }}
-                        className={classes.colorInput}
-                      />
-                    </CopyToClipboard>
+                    <ColorInput
+                      value={hsl}
+                      className={classes.colorInput}
+                      label="HSL"
+                    />
                   </Grid>
                 </Grid>
               </Box>
