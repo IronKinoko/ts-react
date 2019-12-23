@@ -98,7 +98,7 @@ const ColorPicker: React.FC = () => {
           s: s * 100,
           l: l * 100
         },
-        opacity: a
+        opacity: a ?? 1
       }
     }
   }, [color])
@@ -106,20 +106,28 @@ const ColorPicker: React.FC = () => {
     color: Color(handleColorChange().color)
       .hex()
       .toString(),
-    opacity: handleColorChange().opacity as number
+    opacity: handleColorChange().opacity
   })
 
   const hex = Color(handleColorChange().color)
     .hex()
     .toString()
   const rgb = Color(handleColorChange().color)
-    .alpha(handleColorChange().opacity as number)
+    .alpha(handleColorChange().opacity)
     .rgb()
     .toString()
   const hsl = Color(handleColorChange().color)
-    .alpha(handleColorChange().opacity as number)
+    .alpha(handleColorChange().opacity)
     .hsl()
     .toString()
+  let alpha = Math.round(255 * handleColorChange().opacity)
+    .toString(16)
+    .toUpperCase()
+  if (alpha.length === 1) {
+    alpha = 0 + alpha
+  }
+  const CSSHex = `${hex}${alpha}`
+  const AndriodHex = `#${alpha}${hex.slice(1)}`
   return (
     <Box p={2}>
       <Grid container spacing={8} justify="center">
@@ -141,14 +149,31 @@ const ColorPicker: React.FC = () => {
             <Grid item>
               <Box className={classes.card}>
                 <Grid container spacing={1}>
-                  <Grid item xs={12}>
+                  <Grid item xs={6}>
                     <CopyToClipboard
-                      text={hex}
-                      onCopy={() => Message.success('Hex color copied')}>
+                      text={CSSHex}
+                      onCopy={() => Message.success('CSS Hex color copied')}>
                       <TextField
-                        value={hex}
+                        value={CSSHex}
                         fullWidth
-                        label="HEX"
+                        label="CSS Hex"
+                        InputProps={{
+                          readOnly: true
+                        }}
+                        className={classes.colorInput}
+                      />
+                    </CopyToClipboard>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <CopyToClipboard
+                      text={AndriodHex}
+                      onCopy={() =>
+                        Message.success('Andriod Hex color copied')
+                      }>
+                      <TextField
+                        value={AndriodHex}
+                        fullWidth
+                        label="Andriod Hex"
                         InputProps={{
                           readOnly: true
                         }}
