@@ -1,21 +1,14 @@
-const rewireReactHotLoader = require('react-app-rewire-hot-loader')
 const {
   override,
   fixBabelImports,
   addWebpackModuleRule,
-  addWebpackAlias
+  addWebpackAlias,
+  addBabelPlugin
 } = require('customize-cra')
 const path = require('path')
 
-if (process.env.NODE_ENV === 'production') {
-  process.env.GENERATE_SOURCEMAP = 'false'
-}
-/* config-overrides.js */
 module.exports = override(
-  (config, env) => {
-    config = rewireReactHotLoader(config, env)
-    return config
-  },
+  addBabelPlugin('react-hot-loader/babel'),
   fixBabelImports('@material-ui/core', {
     libraryName: '@material-ui/core',
     // Use "'libraryDirectory': ''," if your bundler does not support ES modules

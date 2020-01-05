@@ -10386,11 +10386,6 @@ react-app-polyfill@^1.0.5:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
-react-app-rewire-hot-loader@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npm.taobao.org/react-app-rewire-hot-loader/download/react-app-rewire-hot-loader-2.0.1.tgz#9b47d299dac4d861dafdf18b49c3698d0ff04a52"
-  integrity sha1-m0fSmdrE2GHa/fGLScNpjQ/wSlI=
-
 react-app-rewired@^2.1.5:
   version "2.1.5"
   resolved "https://registry.npm.taobao.org/react-app-rewired/download/react-app-rewired-2.1.5.tgz#592ec2eae5c3c5cd96c80930b5dc3f6c34da1dc6"
