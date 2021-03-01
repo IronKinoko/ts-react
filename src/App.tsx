@@ -46,6 +46,9 @@ const ColorPicker = React.lazy(() =>
 const Barcode = React.lazy(() =>
   import(/* webpackChunkName: 'Barcode'*/ './components/Barcode/Barcode')
 )
+const Bark = React.lazy(() =>
+  import(/* webpackChunkName: 'Bark'*/ './components/Bark/Bark')
+)
 
 const actionsMap = { PUSH: 'forward', POP: 'back', REPLACE: '' }
 const Routers = withRouter(({ location, history }) => (
@@ -67,6 +70,7 @@ const Routers = withRouter(({ location, history }) => (
           <Route path="/changelog" component={Changelog} />
           <Route path="/colorPicker" component={ColorPicker} />
           <Route path="/barcode" component={Barcode} />
+          <Route path="/bark" component={Bark} />
           <Redirect to="/" />
         </Switch>
       </Suspense>

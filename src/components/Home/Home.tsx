@@ -28,6 +28,7 @@ const classifies: ClassifyProps[] = [
   {
     title: '工具',
     route: [
+      { path: '/bark', name: 'Bark', keyWords: 'bark' },
       { path: '/jsonFormat', name: 'JSON格式化', keyWords: 'json' },
       {
         path: './transcoding',
@@ -44,7 +45,7 @@ const classifies: ClassifyProps[] = [
     route: [
       { path: '/test', name: '测试专用', keyWords: '' },
       { path: '/reactHook', name: 'React Hook', keyWords: '' },
-      { path: './reactSpring', name: 'React Spring', keyWords: '' }
+      { path: './reactSpring', name: 'React Spring', keyWords: '' },
     ]
   }
 ]
