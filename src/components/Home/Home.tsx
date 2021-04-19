@@ -37,7 +37,8 @@ const classifies: ClassifyProps[] = [
       },
       { path: './qrcode', name: '二维码工具', keyWords: 'qrcode' },
       { path: './colorPicker', name: '拾色器', keyWords: 'colorpicker' },
-      { path: './barcode', name: '条形码工具', keyWords: 'barcode' }
+      { path: './barcode', name: '条形码工具', keyWords: 'barcode' },
+      { path: './svgViewer', name: 'SVG查看器', keyWords: 'svgViewer' }
     ]
   },
   {
@@ -45,7 +46,7 @@ const classifies: ClassifyProps[] = [
     route: [
       { path: '/test', name: '测试专用', keyWords: '' },
       { path: '/reactHook', name: 'React Hook', keyWords: '' },
-      { path: './reactSpring', name: 'React Spring', keyWords: '' },
+      { path: './reactSpring', name: 'React Spring', keyWords: '' }
     ]
   }
 ]

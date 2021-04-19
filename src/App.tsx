@@ -49,6 +49,9 @@ const Barcode = React.lazy(() =>
 const Bark = React.lazy(() =>
   import(/* webpackChunkName: 'Bark'*/ './components/Bark/Bark')
 )
+const SVGViewer = React.lazy(() =>
+  import(/* webpackChunkName: 'SVGViewer'*/ './components/SVGViewer/SVGViewer')
+)
 
 const actionsMap = { PUSH: 'forward', POP: 'back', REPLACE: '' }
 const Routers = withRouter(({ location, history }) => (
@@ -71,6 +74,7 @@ const Routers = withRouter(({ location, history }) => (
           <Route path="/colorPicker" component={ColorPicker} />
           <Route path="/barcode" component={Barcode} />
           <Route path="/bark" component={Bark} />
+          <Route path="/svgViewer" component={SVGViewer} />
           <Redirect to="/" />
         </Switch>
       </Suspense>
