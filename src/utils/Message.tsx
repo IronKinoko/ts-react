@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import MessageSnackbar from 'components/Snackebar/Snackbar'
 import { SnackbarContentProps } from '@material-ui/core'
 
-interface SnackbarWrapProps extends SnackbarContentProps {
+interface SnackbarWrapProps extends Omit<SnackbarContentProps,'variant'> {
   duration: number
   variant: 'error' | 'success' | 'info' | 'warning'
 }

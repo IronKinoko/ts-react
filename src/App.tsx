@@ -1,5 +1,4 @@
 import React, { Suspense } from 'react'
-import { hot } from 'react-hot-loader/root'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Box from '@material-ui/core/Box'
@@ -93,4 +92,4 @@ const App: React.FC = () => {
   )
 }
 
-export default process.env.NODE_ENV === 'development' ? hot(App) : App
+export default App
