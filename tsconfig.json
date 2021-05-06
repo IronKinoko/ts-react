@@ -23,5 +23,8 @@
   "include": [
     "./src/**/*"
   ],
+  "exclude": [
+    "./src/plugins/**/*"
+  ],
   "extends": "./paths.json"
 }

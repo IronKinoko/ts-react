@@ -1,14 +1,40 @@
-import { Box, Button, ButtonGroup, Grid, TextField } from '@material-ui/core'
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Grid,
+  TextField,
+  makeStyles,
+  createStyles,
+} from '@material-ui/core'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import React, { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import Message from 'utils/Message'
-import {sanitize} from 'dompurify'
+import { sanitize } from 'dompurify'
 const colors = ['red', 'blue', 'gray']
 const fontSize = [20, 30, 40]
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      display: 'flex',
+      alignItems: 'center',
+      margin:'8px 0',
+    },
+    span: {
+      display: 'inline-block',
+      margin: '0 8px',
+      '& svg': {
+        display: 'block',
+      },
+    },
+  })
+)
+
 const SVGViewer = () => {
   const [content, setContent] = useState('')
+  const classes = useStyles()
 
   const clean = sanitize(content)
   return (
@@ -40,26 +66,24 @@ const SVGViewer = () => {
         </Grid>
         <Grid item xs={12}>
           {colors.map((color, i) => (
-            <div key={color}>
+            <div key={color} className={classes.root}>
               <span style={{ display: 'inline-block', width: 200 }}>
                 color: {color} fontSize: {fontSize[i]}
               </span>
               <span
+                className={classes.span}
                 style={{
                   color,
-                  display: 'inline-block',
                   fontSize: fontSize[i],
-                  margin: '0 8px 8px 0'
                 }}
                 dangerouslySetInnerHTML={{ __html: clean }}
               />
               <span
+                className={classes.span}
                 style={{
                   color,
-                  display: 'inline-block',
                   fontSize: fontSize[i],
-                  margin: '0 8px 8px 0',
-                  border: `1px dashed ${color}`
+                  border: `1px dashed ${color}`,
                 }}
                 dangerouslySetInnerHTML={{ __html: clean }}
               />
