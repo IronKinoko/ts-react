@@ -3,13 +3,14 @@ import FileCopyIcon from '@material-ui/icons/FileCopy'
 import React, { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import Message from 'utils/Message'
-
+import {sanitize} from 'dompurify'
 const colors = ['red', 'blue', 'gray']
 const fontSize = [20, 30, 40]
 
 const SVGViewer = () => {
   const [content, setContent] = useState('')
 
+  const clean = sanitize(content)
   return (
     <Box pt={2} p={1}>
       <Grid container spacing={2}>
@@ -50,7 +51,17 @@ const SVGViewer = () => {
                   fontSize: fontSize[i],
                   margin: '0 8px 8px 0'
                 }}
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: clean }}
+              />
+              <span
+                style={{
+                  color,
+                  display: 'inline-block',
+                  fontSize: fontSize[i],
+                  margin: '0 8px 8px 0',
+                  border: `1px dashed ${color}`
+                }}
+                dangerouslySetInnerHTML={{ __html: clean }}
               />
             </div>
           ))}

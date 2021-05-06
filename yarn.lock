@@ -1868,6 +1868,13 @@
   dependencies:
     "@types/color-convert" "*"
 
+"@types/dompurify@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.nlark.com/@types/dompurify/download/@types/dompurify-2.2.2.tgz#2c6692580eb7c653785ca3b2c1348847ea8b995d"
+  integrity sha1-LGaSWA63xlN4XKOywTSIR+qLmV0=
+  dependencies:
+    "@types/trusted-types" "*"
+
 "@types/eslint@^7.2.6":
   version "7.2.10"
   resolved "https://registry.npm.taobao.org/@types/eslint/download/@types/eslint-7.2.10.tgz?cache=0&sync_timestamp=1618430350991&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Feslint%2Fdownload%2F%40types%2Feslint-7.2.10.tgz#4b7a9368d46c0f8cd5408c23288a59aa2394d917"
@@ -2097,6 +2104,11 @@
   version "1.0.7"
   resolved "https://registry.nlark.com/@types/tapable/download/@types/tapable-1.0.7.tgz#545158342f949e8fd3bfd813224971ecddc3fac4"
   integrity sha1-VFFYNC+Uno/Tv9gTIklx7N3D+sQ=
+
+"@types/trusted-types@*":
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/@types/trusted-types/download/@types/trusted-types-2.0.0.tgz#aee6e868fcef74f2b8c71614b6df81a601a42f17"
+  integrity sha1-ruboaPzvdPK4xxYUtt+BpgGkLxc=
 
 "@types/uglify-js@*":
   version "3.13.0"
@@ -4655,6 +4667,11 @@ domhandler@^4.0.0, domhandler@^4.2.0:
   integrity sha1-+XaKXwNL5gqJonwuTQ9066DYsFk=
   dependencies:
     domelementtype "^2.2.0"
+
+dompurify@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.nlark.com/dompurify/download/dompurify-2.2.8.tgz?cache=0&sync_timestamp=1619597988167&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdompurify%2Fdownload%2Fdompurify-2.2.8.tgz#ce88e395f6d00b6dc53f80d6b2a6fdf5446873c6"
+  integrity sha1-zojjlfbQC23FP4DWsqb99URoc8Y=
 
 domutils@^1.5.1, domutils@^1.7.0:
   version "1.7.0"
@@ -10085,7 +10102,7 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-app-rewired@^2.1.5:
+react-app-rewired@^2.1.8:
   version "2.1.8"
   resolved "https://registry.npm.taobao.org/react-app-rewired/download/react-app-rewired-2.1.8.tgz#e192f93b98daf96889418d33d3e86cf863812b56"
   integrity sha1-4ZL5O5ja+WiJQY0z0+hs+GOBK1Y=
